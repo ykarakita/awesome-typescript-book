@@ -9,7 +9,7 @@ const gameTitles = ['hit and blow', 'janken'] as const
 type GameTitle = typeof gameTitles[number]
 
 type GameStore = {
-  [key: string]: HitAndBlow | Janken
+  [key in GameTitle]: HitAndBlow | Janken
 }
 
 export class GameProcedure {
