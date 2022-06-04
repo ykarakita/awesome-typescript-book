@@ -1,7 +1,4 @@
-import { HitAndBlow } from './hitAndBlow'
+import { GameProcedure } from './gameProcedure'
 ;(async () => {
-  const hitAndBlow = new HitAndBlow()
-  await hitAndBlow.setting()
-  await hitAndBlow.play()
-  hitAndBlow.end()
+  new GameProcedure().start()
 })()
