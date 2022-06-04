@@ -1,25 +1,24 @@
 type Mode = 'normal' | 'hard'
 
 class HitAndBlow {
-  private readonly answerSource = ['0', '1', '2', '3', '4', '5', '6', '7','8', '9']
+  private readonly answerSource = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   private answer: string[] = []
   private tryCount = 0
   private mode: Mode = 'normal'
 
   private getAnswerLength() {
     switch (this.mode) {
-    case 'normal':
-      return 3
-    case 'hard':
-      return 4
-    default:
-      const neverValue: never = this.mode
-      throw new Error(`${neverValue} は不正なモードです`)
+      case 'normal':
+        return 3
+      case 'hard':
+        return 4
+      default:
+        throw new Error(`${this.mode} は不正なモードです`)
     }
   }
 
-  async setting () {
-    const inputMode = await promptInput('input mode: [normal, hard]') as Mode
+  async setting() {
+    const inputMode = (await promptInput('input mode: [normal, hard]')) as Mode
     this.mode = inputMode
 
     const answerLength = this.getAnswerLength()
@@ -35,7 +34,7 @@ class HitAndBlow {
 
   private validate(inputArr: string[]) {
     const isLengthValid = inputArr.length === this.answer.length
-    const isAllAnswerSourceOption = inputArr.every(((val) => this.answerSource.includes(val)))
+    const isAllAnswerSourceOption = inputArr.every((val) => this.answerSource.includes(val))
     const isAllDifferentValues = inputArr.every((val, i) => inputArr.indexOf(val) === i)
 
     return isLengthValid && isAllAnswerSourceOption && isAllDifferentValues
