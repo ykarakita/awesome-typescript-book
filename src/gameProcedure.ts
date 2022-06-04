@@ -1,6 +1,4 @@
 import { printLine, promptSelect } from './common'
-import { HitAndBlow } from './hitAndBlow'
-import { Janken } from './janken'
 
 const nextActions = ['play again', 'exit', 'change game'] as const
 type NextAction = typeof nextActions[number]
