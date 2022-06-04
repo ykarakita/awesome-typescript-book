@@ -62,6 +62,12 @@ export class HitAndBlow {
 
   end() {
     printLine(`正解です！ \n試行回数: ${this.tryCount}回`)
+    this.reset()
+  }
+
+  reset() {
+    this.answer = []
+    this.tryCount = 0
   }
 
   async play() {
