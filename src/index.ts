@@ -16,6 +16,9 @@ class HitAndBlow {
         return 3
       case "hard":
         return 4
+      default:
+        const neverValue: never = this.mode
+        throw new Error(`${neverValue} は不正なモードです`)
     }
   }
 
