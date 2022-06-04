@@ -2,7 +2,7 @@ import { printLine, promptSelect } from './common'
 import { HitAndBlow } from './hitAndBlow'
 import { Janken } from './janken'
 
-const nextActions = ['play again', 'exit'] as const
+const nextActions = ['play again', 'exit', 'change game'] as const
 type NextAction = typeof nextActions[number]
 
 const gameTitles = ['hit and blow', 'janken'] as const
@@ -43,6 +43,9 @@ export class GameProcedure {
       await this.play()
     } else if (action === 'exit') {
       this.end()
+    } else if (action === 'change game') {
+      await this.select()
+      await this.play()
     } else {
       throw new Error(`${action} is an invalid action.`)
     }
