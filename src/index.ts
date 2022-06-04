@@ -1,6 +1,7 @@
 type Mode = 'normal' | 'hard'
 
 class HitAndBlow {
+  private readonly selectableMode: Mode[] = ['normal', 'hard']
   private readonly answerSource = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   private answer: string[] = []
   private tryCount = 0
@@ -18,8 +19,7 @@ class HitAndBlow {
   }
 
   async setting() {
-    const inputMode = (await promptInput('input mode: [normal, hard]')) as Mode
-    this.mode = inputMode
+    this.mode = (await promptSelect('モードを入力してください。', this.selectableMode)) as Mode
 
     const answerLength = this.getAnswerLength()
 
@@ -83,16 +83,35 @@ class HitAndBlow {
   }
 }
 
-const printLine = (text: string, breakLine: boolean = true) => {
+const printLine = (text: string, breakLine = true) => {
   process.stdout.write(text + (breakLine ? '\n' : ''))
 }
 
-const promptInput = async (text: string) => {
-  printLine(`\n${text}\n`, false)
+const readLine = async () => {
   const input: string = await new Promise((resolve) => {
     process.stdin.once('data', (data) => resolve(data.toString()))
   })
   return input.trim()
+}
+
+const promptInput = async (text: string) => {
+  printLine(`\n${text}\n`, false)
+  return readLine()
+}
+
+const promptSelect = async (text: string, values: readonly string[]): Promise<string> => {
+  printLine(`\n${text}`)
+  values.forEach((value) => {
+    printLine(`- ${value}`)
+  })
+  printLine('> ', false)
+
+  const input = await readLine()
+  if (values.includes(input)) {
+    return input
+  } else {
+    return promptSelect(text, values)
+  }
 }
 
 ;(async () => {
