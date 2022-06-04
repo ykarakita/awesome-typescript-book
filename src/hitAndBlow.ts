@@ -3,7 +3,7 @@ import { printLine, promptInput, promptSelect } from './common'
 const selectableModes = ['normal', 'hard'] as const
 type Mode = typeof selectableModes[number]
 
-export class HitAndBlow {
+export class HitAndBlow implements Game {
   private readonly answerSource = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   private answer: string[] = []
   private tryCount = 0

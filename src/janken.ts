@@ -5,7 +5,7 @@ import { printLine, promptInput, promptSelect } from './common'
 const jankenOptions = ['rock', 'paper', 'scissors'] as const
 type JankenOption = typeof jankenOptions[number]
 
-export class Janken {
+export class Janken implements Game {
   private rounds = 0
   private currentRound = 1
   private result = {
