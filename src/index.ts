@@ -4,7 +4,7 @@ class HitAndBlow {
   private readonly answerSource = ['0', '1', '2', '3', '4', '5', '6', '7','8', '9']
   private answer: string[] = []
   private tryCount = 0
-  private mode: Mode
+  private readonly mode: Mode
 
   constructor(mode: Mode) {
     this.mode = mode
