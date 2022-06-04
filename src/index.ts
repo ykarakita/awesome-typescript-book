@@ -4,11 +4,7 @@ class HitAndBlow {
   private readonly answerSource = ['0', '1', '2', '3', '4', '5', '6', '7','8', '9']
   private answer: string[] = []
   private tryCount = 0
-  private readonly mode: Mode
-
-  constructor(mode: Mode) {
-    this.mode = mode
-  }
+  private mode: Mode = 'normal'
 
   private getAnswerLength() {
     switch (this.mode) {
@@ -22,7 +18,10 @@ class HitAndBlow {
     }
   }
 
-  setting () {
+  async setting () {
+    const inputMode = await promptInput('input mode: [normal, hard]') as Mode
+    this.mode = inputMode
+
     const answerLength = this.getAnswerLength()
 
     while (this.answer.length < answerLength) {
@@ -98,9 +97,8 @@ const promptInput = async (text: string) => {
 }
 
 ;(async () => {
-  const mode = 'normal'
-  const hitAndBlow = new HitAndBlow(mode)
-  hitAndBlow.setting()
+  const hitAndBlow = new HitAndBlow()
+  await hitAndBlow.setting()
   await hitAndBlow.play()
   hitAndBlow.end()
 })()
