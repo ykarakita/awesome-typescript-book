@@ -1,7 +1,7 @@
-type Mode = 'normal' | 'hard'
+const selectableModes = ['normal', 'hard'] as const
+type Mode = typeof selectableModes[number]
 
 class HitAndBlow {
-  private readonly selectableMode: Mode[] = ['normal', 'hard']
   private readonly answerSource = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   private answer: string[] = []
   private tryCount = 0
@@ -19,7 +19,7 @@ class HitAndBlow {
   }
 
   async setting() {
-    this.mode = await promptSelect<Mode>('モードを入力してください。', this.selectableMode)
+    this.mode = await promptSelect<Mode>('モードを入力してください。', selectableModes)
 
     const answerLength = this.getAnswerLength()
 
