@@ -2,5 +2,14 @@
   "compilerOptions": {
     "strict": true,
     "sourceMap": true,
+    "target": "ES2015",
+    "lib": ["DOM", "ESNext"],
+    "module": "ES2015",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true, // ファイル名の大文字小文字を区別するかどうか
+    "noFallthroughCasesInSwitch": true, // switch 文の case 句内で break または return の記述を強制するかどうか
+    "noImplicitReturns": true, // 関数内のすべてのコードパスに置いて値を返却していることを強制するかどうか
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
   }
 }
