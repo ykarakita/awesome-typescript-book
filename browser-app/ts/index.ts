@@ -1,17 +1,23 @@
 import { EventListener } from './EventListener'
-import { Task } from './Task'
+import { Status, Task } from './Task'
 import { TaskCollection } from './TaskCollection'
 import { TaskRenderer } from './TaskRenderer'
 
 class Application {
   private readonly eventListener = new EventListener()
   private readonly taskCollection = new TaskCollection()
-  private readonly taskRenderer = new TaskRenderer(document.getElementById('todoList') as HTMLElement)
+  private readonly taskRenderer = new TaskRenderer(
+    document.getElementById('todoList') as HTMLElement,
+    document.getElementById('doingList') as HTMLElement,
+    document.getElementById('doneList') as HTMLElement,
+  )
 
   start() {
     const createForm = document.getElementById('createForm') as HTMLElement
 
     this.eventListener.add('submit-handler', 'submit', createForm, this.handleSubmit)
+
+    this.taskRenderer.subscribeDragAndDrop(this.handleDragAndDrop)
   }
 
   private handleSubmit = (e: Event) => {
@@ -38,6 +44,19 @@ class Application {
 
     this.taskCollection.delete(task)
     this.taskRenderer.remove(task)
+  }
+
+  private handleDragAndDrop = (el: Element, sibling: Element | null, newStatus: Status) => {
+    const taskId = this.taskRenderer.getId(el)
+    if (!taskId) return
+
+    const task = this.taskCollection.find(el.id)
+    if (!task) return
+
+    task.update({ status: newStatus })
+    this.taskCollection.update(task)
+
+    console.log(sibling)
   }
 }
 
