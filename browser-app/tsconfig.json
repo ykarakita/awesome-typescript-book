@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./ts",
-    "strict": true
+    "strict": true,
+    "sourceMap": true,
   }
 }
